@@ -11,8 +11,8 @@ def genCaesar(n, string):
         count += 1;
     caesar = "";
     for s in string:
-        if(s == " "):
-            caesar += " ";
+        if(s not in key):
+            caesar += s;
             continue;
         caesar += key[s];
     return caesar;
