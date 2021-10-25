@@ -22,7 +22,9 @@ def counter(n):
     return cnt;
 
 
-cProfile.run("counter(factorial(13))")
 
+print(factorial(26))
+print(counter(403291461126605635584000000))
+# cProfile.run("counter(factorial(26))");
 
-# cProfile.run();
+# this poses the complexity of O 2^n
