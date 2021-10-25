@@ -30,6 +30,9 @@ def caesar(n, string, method):
         caesar += key[s];
     return caesar;
 
-n = 3
-print(caesar(n, "you are awesome", CaesarEnum.enc))
-print(caesar(n, caesar(n, "you are awesome", CaesarEnum.enc), CaesarEnum.dec))
+n = 15
+print(caesar(n, "you are awesome", CaesarEnum.enc));
+print(caesar(n, caesar(n, "you are awesome", CaesarEnum.enc), CaesarEnum.dec));
+print("decryption attack");
+for i in range(26):
+    print(caesar(i, caesar(n, "you are awesome", CaesarEnum.enc), CaesarEnum.dec));
