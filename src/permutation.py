@@ -15,9 +15,6 @@ def factorial(n):
     else:
         return factorial(n-1)*n;
 
-# for i in range(1,10):
-#     print(factorial(i));
-
 def counter(n):
     cnt = 0;
     for i in range(n):
