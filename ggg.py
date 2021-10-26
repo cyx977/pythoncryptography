@@ -1,6 +1,1 @@
-a = {};
-a["b"] = 2
-a["c"] = 3
-inv_map = {v: k for k, v in a.items()}
-
-print(inv_map.items())
+print(sorted([1,2,3,4,5], reverse=1))
