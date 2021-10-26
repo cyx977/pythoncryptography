@@ -10,4 +10,7 @@ current implementation of our caesar can be decrypted easily.
 however;  
 
 kerckoff's principle: Eve should not be able to break the ciphers even when he knows the cipher key  
-the attacker even if he know the algorithm(not the key); he shouldn't be able to decrypt it.
+the attacker even if he know the algorithm(not the key); he shouldn't be able to decrypt it.  
+
+rule of thumb is to use substitution cipher instead of shifting cipher. this leaves the pool of 26! permutatins.  
+now lets use the frequency analysis
