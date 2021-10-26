@@ -34,6 +34,7 @@ class Attack:
         return self.key
     
     def calculate_freq(self, cipher):
+        cipher = cipher.lower()
         for c in self.alphabet:
             self.freq[c] = 0
         letter_count = 0

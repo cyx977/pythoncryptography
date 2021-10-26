@@ -1,3 +1,6 @@
+from frequency_analysis import Attack
+
+
 original_string = "New applicants will now be required to complete a driving test based on the new scoring system.To pass the written portion of the driving exam, which has a total score of 100, an applicant must obtain 60 points out of a total of 100.The portion will ask objective questions from the DoTM's 500-question question bank, which has previously been released.Similarly, the trial phase will also be done using the new scoring system, in which the applicant must get 70 points in order to pass the trial.In comparison to previous trials, where an application was automatically disqualified if they made even a slight error, the new scoring system will provide much-needed respite to applicants.".lower()
 original_key = {'a': 'm', 'b': 'c', 'c': 'n', 'd': 'h', 'e': 's', 'f': 'l', 'g': 'p', 'h': 'a', 'i': 'v', 'j': 'y', 'k': 'k', 'l': 'w', 'm': 'g', 'n': 't', 'o': 'i', 'p': 'o', 'q': 'z', 'r': 'b', 's': 'x', 't': 'e', 'u': 'u', 'v': 'q', 'w': 'd', 'x': 'r', 'y': 'f', 'z': 'j'}
 
