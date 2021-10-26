@@ -1,4 +1,5 @@
 import operator
+import sys
 cipher = """lrvmnir bpr sumvbwvr jx bpr lmiwv yjeryrkbi jx qmbm wi
 bpr xjvni mkd ymibrut jx irhx wi bpr riirkvr jx
 ymbinlmtmipw utn qmumbr dj w ipmhh but bj rhnvwdmbr bpr
@@ -21,18 +22,20 @@ class Attack:
         self.plain_chars_left = 'abcdefghijklmnopqrstuvwxyz'
         self.cipher_chars_left = 'abcdefghijklmnopqrstuvwxyz'
         self.freq = {}
+        self.key = {}
         self.mappings = {}
         self.freq_english = {'a': 0.0817, 'b': 0.0150, 'c': 0.0278, 'd': 0.0425, 'e': 0.1270, 'f': 0.0223,
                'g': 0.0202, 'h': 0.0609, 'i': 0.0697, 'j': 0.0015, 'k': 0.0077, 'l': 0.0403,
                'm': 0.0241, 'n': 0.0675, 'o': 0.0751, 'p': 0.0193, 'q': 0.0010, 'r': 0.0599,
                's': 0.0633, 't': 0.0906, 'u': 0.0276, 'v': 0.0098, 'w': 0.0236, 'x': 0.0015,
                'y': 0.0197, 'z': 0.0007}
-
+    
+    def get_key(self):
+        return self.key
     
     def calculate_freq(self, cipher):
         for c in self.alphabet:
             self.freq[c] = 0
-        
         letter_count = 0
         for c in cipher:
             if c in self.freq:
@@ -50,21 +53,28 @@ class Attack:
             new_line_count +=1
 
     def calculate_matches(self):
-        for cipher_char in self.alphabet:
+        for cipher_char in self.plain_chars_left:
             map = {}
-            for plain_char in self.alphabet:
+            for plain_char in self.plain_chars_left:
                 map[plain_char] = round(abs(self.freq[cipher_char] - self.freq_english[plain_char]), 4)
             self.mappings[cipher_char] = sorted(map.items(), key= operator.itemgetter(1))
     
+    def set_known_key(self, cipher_char, plain_char):
+        if cipher_char not in self.cipher_chars_left or plain_char not in self.plain_chars_left:
+            print("key couldn't be mapped due to collission")
+            sys.exit(-1)
+        self.key[cipher_char] = plain_char
+        self.plain_chars_left = self.plain_chars_left.replace(plain_char, '')
+        self.cipher_chars_left = self.cipher_chars_left.replace(cipher_char, '')
+
     def guess_key(self):
-        key = {}
         for cipher_char in self.cipher_chars_left:
             for plain_char, diff in self.mappings[cipher_char]:
                 if plain_char in self.plain_chars_left:
-                    key[cipher_char] = plain_char
-                    self.plain_chars_left = self.plain_chars_left.replace(plain_char, '')
+                    self.key[cipher_char] = plain_char
+                    self.alphabet = self.alphabet.replace(plain_char, '')
                     break
-        return key
+
 
 def decrypt(key, cipher):
     message = ""
@@ -78,47 +88,39 @@ def decrypt(key, cipher):
 
 attack = Attack()
 attack.calculate_freq(cipher)
-# attack.print_freq()
 attack.calculate_matches()
-print()
+attack.set_known_key('r', 'e')
+attack.set_known_key('v', 'c')
+attack.set_known_key('m', 'a')
+attack.set_known_key('p', 'h')
+attack.set_known_key('w', 'i')
+attack.set_known_key('k', 'n')
+attack.set_known_key('x', 'f')
+attack.set_known_key('d', 'd')
+attack.set_known_key('t', 'y')
+attack.set_known_key('q', 'k')
+attack.set_known_key('o', 'g')
+attack.set_known_key('y', 'm')
+attack.set_known_key('u', 'r')
+attack.set_known_key('c', 'w')
+attack.set_known_key('s', 'p')
+attack.set_known_key('a', 'x')
+attack.set_known_key('f', 'q')
+attack.set_known_key('g', 'z')
+
+
+key = attack.guess_key()
+print(decrypt(attack.get_key(), cipher))
+print(attack.get_key())
+
+
+
+
+
+
+
+# attack.print_freq()
+# print()
+
 # for c in attack.mappings:
 #     print(c, " : ", attack.mappings[c])
-key = attack.guess_key()
-# print(key)
-print(decrypt(key, cipher))
-
-
-
-
-
-
-# letters = "abcdefghijklmnopqrstuvwxyz"
-
-# freq = {}
-# for c in letters:
-#     freq[c] = 0
-
-# letter_count = 0
-# for c in cipher:
-#     if c in freq:
-#         freq[c] += 1
-#         letter_count +=1
-
-# for c in freq:
-#     freq[c] = round(freq[c]/letter_count, 4)
-
-# print(freq)
-
-
-# letter_freq = {'a': 0.0817, 'b': 0.0150, 'c': 0.0278, 'd': 0.0425, 'e': 0.1270, 'f': 0.0223,
-#                'g': 0.0202, 'h': 0.0609, 'i': 0.0697, 'j': 0.0015, 'k': 0.0077, 'l': 0.0403,
-#                'm': 0.0241, 'n': 0.0675, 'o': 0.0751, 'p': 0.0193, 'q': 0.0010, 'r': 0.0599,
-#                's': 0.0633, 't': 0.0906, 'u': 0.0276, 'v': 0.0098, 'w': 0.0236, 'x': 0.0015,
-#                'y': 0.0197, 'z': 0.0007}
-
-#print(freq)
-#{'a': 0.0077, 'b': 0.1053, 'c': 0.0077, 'd': 0.0356, 'e': 0.0077, 'f': 0.0015, 'g': 0.0015, 
-# 'h': 0.0356, 'i': 0.0635, 'j': 0.0743, 'k': 0.0759, 'l': 0.0124, 'm': 0.096, 'n': 0.0263, 
-# 'o': 0.0108, 'p': 0.0464, 'q': 0.0108, 'r': 0.13, 's': 0.0263, 't': 0.0201, 'u': 0.0372, 
-# 'v': 0.0341, 'w': 0.0728, 'x': 0.031, 'y': 0.0294, 'z': 0.0}
-
