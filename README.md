@@ -13,4 +13,8 @@ kerckoff's principle: Eve should not be able to break the ciphers even when he k
 the attacker even if he know the algorithm(not the key); he shouldn't be able to decrypt it.  
 
 rule of thumb is to use substitution cipher instead of shifting cipher. this leaves the pool of 26! permutatins.  
-now lets use the frequency analysis
+now lets use the frequency analysis  
+
+one time pad uses xor to encrypt the data. key stream should not be reused.  
+however one time pad is not practical.  
+we have stream cipher to the rescue
