@@ -85,8 +85,7 @@ def decrypt(key, cipher):
         else:
             message += c
     return message
-
-
+    
 attack = Attack()
 attack.calculate_freq(cipher)
 attack.calculate_matches()

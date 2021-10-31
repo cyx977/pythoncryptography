@@ -6,8 +6,6 @@ def generate_key_stream(n):
 def xor_bytes(key_stream, message):
     length = min(len(key_stream), len(message))
     return bytes([key_stream[i] ^ message[i] for i in range(length)])
-
-
 # done by the enemy
 message = "i dont know".encode()
 key_stream = generate_key_stream(len(message))
