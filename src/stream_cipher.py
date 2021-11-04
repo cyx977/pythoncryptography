@@ -5,11 +5,11 @@ class KeyStream:
         self.next = key
  
     def rand(self):
-        self.next = (1103515245 * self.next + 12345) % 2 ** 31
+        self.next = (1103515245 * self.next + 12345) % 2**31
         return self.next
  
     def get_key_byte(self):
-        return self.rand() % 256
+        return (self.rand() // 2**23) % 256
  
  
 def encrypt(key, message):
@@ -46,8 +46,8 @@ def brute_force(plain, cipher):
             xor_value = plain[i] ^ cipher[i]
             if xor_value != bf_key.get_key_byte():
                 break
-            else:
-                return k
+        else:
+            return k
     return False
 
 
@@ -99,7 +99,7 @@ def brute_force(plain, cipher):
 # print(crack(eves_key_stream, cipher))
 
 # this is alice
-secret_key = random.randrange(0, 2**31)
+secret_key = random.randrange(0, 2**20)
 key = KeyStream(secret_key)
 print("alice's secret key", secret_key)
 header = "Message: "
@@ -115,6 +115,7 @@ message = encrypt(key, cipher)
 print(message)
 
 # this is eve
+print("bruting")
 bf_key = brute_force(header.encode(), cipher)
 key = KeyStream(bf_key)
 message = encrypt(key, cipher)
