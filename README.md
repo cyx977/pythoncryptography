@@ -17,4 +17,10 @@ now lets use the frequency analysis
 
 one time pad uses xor to encrypt the data. key stream should not be reused.  
 however one time pad is not practical.  
-we have stream cipher to the rescue
+we have stream cipher to the rescue  
+now even if we have secure enough unf'breakable keys; how do we send it  
+alice has v1 and sends v' | bob has v2 and sends v2'
+eve has both v1' and v2'
+
+the key can be extracted with v1 and v2' as well as v1' and v2   
+but not with v1' and v2'

@@ -30,8 +30,6 @@ iv = bytes([0]*8)
 k = des(key, ECB, iv,pad=None, padmode=PAD_PKCS5)
 
 
-
-
 # alice sending the encrypted message
 cipher = k.encrypt(message)
 print("length of plain_text : ", len(message))
