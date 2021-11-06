@@ -24,7 +24,26 @@ def get_generator(p):
         if is_generator(g, p):
             return g
 
-p = get_prime(100)
+p = get_prime(10000)
 g = get_generator(p)
 print("Generator ",g," Prime ", p )
 
+#alice
+a = random.randrange(0,p)
+g_a = (g**a) % p
+#alice sends this out in the public
+print(f"alice's g_a: {g_a}")
+
+#bob
+b = random.randrange(0, p)
+g_b = (g**b) % p
+#bob sends this out in the public
+print(f"Bob's g_b {g_b}")
+
+# back to alice
+g_ab = (g_b**a) % p
+print(f"g_ab {g_ab}")
+
+# back to bob
+g_ba = (g_a**b) % p
+print(f"g_ba {g_ba}")

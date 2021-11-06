@@ -23,4 +23,8 @@ alice has v1 and sends v' | bob has v2 and sends v2'
 eve has both v1' and v2'
 
 the key can be extracted with v1 and v2' as well as v1' and v2   
-but not with v1' and v2'
+but not with v1' and v2'  
+
+diffie hellman came up with this key exchange idea  
+alice and bob both agree on a predetermined mathematical parameter  
+which is a generator and a big prime number
