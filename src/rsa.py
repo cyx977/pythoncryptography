@@ -12,6 +12,9 @@ def get_prime(size):
         if is_prime(p):
             return p
 
+def lcm(p,q):
+    return abs((p) * (q))//math.gcd(p, q)
+
 def get_e(lambda_n):
     for e in range(2, lambda_n):
         if math.gcd(e, lambda_n) == 1:
@@ -24,6 +27,11 @@ def get_d(e, lambda_n):
             return d
     return False
 
+def factor(n):
+    for p in range(2, n):
+        if n % p == 0:
+            return p,n//p
+
 # key generation
 # step 1: generate two distinct primes
 size = 1024
@@ -35,7 +43,7 @@ n = p * q
 print(f"Modulus n: {n}")
 # step 3: compute Carmichale's totient function lambda(n) = lcm(p-1, q-1)
 # lcm(a,b) = abs(a*b)/gcd(a,b)
-lambda_n = abs((p-1) * (q-1))//math.gcd(p-1, q-1)
+lambda_n = lcm(p-1,q-1)
 print(f"lambda_n: {lambda_n}")
 # step 4: choose and integer e such that 1 < e < lambda(n) and gcd(e, lambda(n)) = 1; 
 # that is e and lambda(n) are coprime
@@ -55,8 +63,19 @@ print(f"bob sends {c}")
 
 # this is alice decrypting the cipher
 m = c**d % n
-print(m)
+print(f"decrypted by alice with his private key {m}")
 
+# this is eve
+print("eve sees the following: ")
+print(f"public key (e,n) ({e},{n})")
+print(f"encrypted cipher {c}")
+p, q = factor(n)
+print(f"Eve's factors p and q {p},{q}")
+lambda_n = lcm(p-1, q-1)
+d=get_d(e, lambda_n)
+print(f"eve's secret exponent {d}")
+m = c ** d % n
+print(f"eve's attacked message: {m}")
 
-
+# this is bob not being careful
 
