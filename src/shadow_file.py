@@ -13,10 +13,13 @@ def guess_password(salt, iterations, entropy):
 iterations = 45454
 salt = base64.b64decode("abcd".encode())
 validation = "SALTED-SHA512-PBKDF2"
-entropy = """mhwDYoFPBvfghTkpKqaEGUyjzICmPzY8CKuZGOad0Sz/7XPOTWNrlpVIfoz53oxsxXFo+toVp9FCTZo5dv00Ztf63GgxrSHsRQg7sJ2BF6G7sEU3ujD6CnSzd923vPNLodBN1RTqpIU67VebSQBobyEveSalInIrSY/CJ24i8uA=""".encode()
+entropy = """cY31dpDovYL1RClaIga025h/m7Q44vVR1iQgWGeWFxLM56f+K2Cw+5IvJxorDMzL/3OTTZxMogrI9sALLEfG9UShdrAZUo0M5WJTS0xmRiML2zaqgZRMk5wQ3bfmDZwBfmYCO2DedFuj8Fr5EjUWq5h8vzEGeNmqo6ZKo8+caHM=""".encode()
 
-password =  "unstealablePassword@2@".encode()
+# supposing 2 character plaintext password for simplicity
+# password =  "ab".encode()
 
-value = hashlib.pbkdf2_hmac("sha512", password, salt, iterations, dklen=128)
+password = guess_password(salt, iterations, entropy)
+# value = hashlib.pbkdf2_hmac("sha512", password, salt, iterations, dklen=128)
 print(f"original entropy {entropy}")
-print(f" calculated hash : {base64.b64encode(value)}")
+# print(f" calculated hash : {base64.b64encode(value)}")
+print(password)
