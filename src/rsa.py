@@ -78,4 +78,10 @@ m = c ** d % n
 print(f"eve's attacked message: {m}")
 
 # this is bob not being careful
+print("this is bob not being careful")
+message = "alice is awesome"
+for m_c in message:
+    c = ord(m_c)**e %n
+    print(c,  " ", end="")
 
+# now eve can do frequency analysis
